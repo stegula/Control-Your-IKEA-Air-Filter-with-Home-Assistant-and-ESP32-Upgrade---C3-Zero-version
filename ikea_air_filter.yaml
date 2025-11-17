@@ -80,14 +80,14 @@ number:
             - servo.write:
                 id: fan_motor
                 level: 1
-            - output.set_level:
+            - output.ledc.set_frequency:
                 id: fan_pwm
-                level: !lambda 'return ((float)x) / 6.0;'
+                frequency: !lambda return x * 50;
           else:
             - switch.turn_off: fan_mosfet
-            - output.set_level:
-                id: fan_pwm
-                level: 0.0
+            
+
+
 
 sensor:
   - platform: pulse_counter
@@ -134,7 +134,7 @@ output:
   - platform: ledc
     id: fan_pwm
     pin: GPIO5
-    frequency: 100
+    frequency: 300
     channel: 0
 
 switch:
